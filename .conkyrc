@@ -1,0 +1,118 @@
+out_to_x no
+out_to_console yes
+short_units yes
+update_interval 1
+
+TEXT
+# CPU temperature:
+[{"full_text":"CPU","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${hwmon 2 temp 2}<45}${hwmon 2 temp 2}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${hwmon 2 temp 2}<55}${hwmon 2 temp 2}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${hwmon 2 temp 2}<60}${hwmon 2 temp 2}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${hwmon 2 temp 2}>=65}${hwmon 2 temp 2}","color":"\#FF3333","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+{"full_text":"C°","color":"\#888888","separator":false,"separator_block_width":6},\
+# Core0:
+{"full_text":"","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${cpu cpu0}<25}${cpu cpu0}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<50}${cpu cpu0}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<75}${cpu cpu0}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<=100}${cpu cpu0}","color":"\#FF3333","separator":false,"separator_block_width":0},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+{"full_text":"%","color":"\#888888","separator":false,"separator_block_width":6},\
+# Core1:
+{"full_text":"","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${cpu cpu1}<25}${cpu cpu0}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu1}<50}${cpu cpu0}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu1}<75}${cpu cpu0}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu1}<=100}${cpu cpu0}","color":"\#FF3333","separator":false,"separator_block_width":0},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+{"full_text":"%","color":"\#888888","separator":false,"separator_block_width":6},\
+# Core2:
+{"full_text":"","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${cpu cpu0}<25}${cpu cpu2}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<50}${cpu cpu2}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<75}${cpu cpu2}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<=100}${cpu cpu2}","color":"\#FF3333","separator":false,"separator_block_width":0},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+{"full_text":"%","color":"\#888888","separator":false,"separator_block_width":6},\
+# Core3:
+{"full_text":"","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${cpu cpu0}<25}${cpu cpu3}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<50}${cpu cpu3}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<75}${cpu cpu3}","color":"\#4c7899","separator":false,"separator_block_width":0},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${cpu cpu0}<=100}${cpu cpu3}","color":"\#FF3333","separator":false,"separator_block_width":0},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+{"full_text":"%","color":"\#888888","separator":false,"separator_block_width":6},\
+# Freq:
+{"full_text":"","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${freq_g 1}Ghz","color":"\#4c7899","separator":false},\
+#Rpm:
+{"full_text":"","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${execi 2 cat /sys/devices/platform/thinkpad_hwmon/fan1_input}Rpm","color":"\#4c7899","separator":false,"separator_block_width":6},\
+# Memory:
+{"full_text":"MEM","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${memperc}<30}$mem/$memmax","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${memperc}<60}$mem/$memmax","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${memperc}<85}$mem/$memmax","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${memperc}>=85}$mem/$memmax","color":"\#FF3333","separator":false,"separator_block_width":6},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+# Swap:
+{"full_text":"SWAP","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${swapperc}<30}$swap/$swapmax","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${swapperc}<60}$swap/$swapmax","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${swapperc}<85}$swap/$swapmax","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${swapperc}>=85}$swap/$swapmax","color":"\#FF3333","separator":false,"separator_block_width":6},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+# diskusage:
+{"full_text":"SSD","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${fs_free /}<30}${fs_used /}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${fs_free /}<60}${fs_used /}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${fs_free /}<85}${fs_used /}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${fs_free /}>=85}${fs_used /}","color":"\#FF3333","separator":false,"separator_block_width":6},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+# diskusage:
+{"full_text":"HDD","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${if_match ${fs_free /data}<30}${fs_used /data}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${fs_free /data}<60}${fs_used /data}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${fs_free /data}<85}${fs_used /data}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+{"full_text":"${else}"},\
+{"full_text":"${if_match ${fs_free /data}>=85}${fs_used /data}","color":"\#FF3333","separator":false,"separator_block_width":6},\
+{"full_text":"${endif}${endif}${endif}${endif}"},\
+#SOUND:
+{"full_text":"MASTER","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${exec amixer get Master -M | grep -oE "[[:digit:]]*%"}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+#BATT:
+{"full_text":"BATT","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${battery_percent}%-${acpiacadapter}","color":"\#4c7899","separator":false,"separator_block_width":6},\
+# Date:
+{"full_text":"T","color":"\#888888","separator":false,"separator_block_width":6},\
+{"full_text":"${time %d.%m %H:%M}","color":"\#888888","separator":false,"separator_block_width":6}\
+],
