@@ -8,39 +8,33 @@
 # To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
 #
-
+set $mod mod4
 ## Gaps Fork
-smart_gaps on
-gaps inner 10
+gaps inner 15
 gaps outer 10
+bindsym $mod+o gaps outer current minus 5
+bindsym $mod+Shift+o gaps outer current plus 5
+smart_gaps on
+
 ## Autostart
 exec --no-startup-id compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88
+exec --no-startup-id dunst -config /home/drakfire/dunstrc
 exec --no-startup-id clipit
 exec --no-startup-id dropbox
 exec --no-startup-id wicd-client --tray
-exec --no-startup-id volwheel
+exec --no-startup-id udiskie -0 -a -n -t
+exec --no-startup-id mpd
+exec --no-startup-id feh --bg-scale /data/wallpaper/bTqc6tw.jpg 
+
 ## Audio ##
- # volume controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
-bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id /home/drakfire/Scripts/volume high
+bindsym XF86AudioLowerVolume exec --no-startup-id /home/drakfire/Scripts/volume low
+bindsym XF86AudioMute exec --no-startup-id /home/drakfire/Scripts/volume mute
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5 -time 0 
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5 -time 0 
 
 # Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font profont:monospace 8
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
+font pango:Profont 8
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -49,118 +43,120 @@ set $down k
 set $left j
 set $right semicolon
 
-# use Mouse+Mod1 to drag floating windows to their wanted position
-floating_modifier Mod1
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 
-# start a terminal
-bindsym Mod1+Return exec --no-startup-id urxvt
-bindsym Mod1+c exec chromium
-bindsym Mod1+p exec pcmanfm
+# start programs
+bindsym $mod+Return exec --no-startup-id urxvt
+bindsym $mod+c exec --no-startup-id chromium
+bindsym $mod+p exec --no-startup-id urxvt -e ranger
+bindsym $mod+Print exec --no-startup-id scrot 'Scrot%Y-%m-%d-%T.png' -e 'mv $f ~/Images/'
+bindsym $mod+shift+v  exec --no-startup-id virtualbox
+bindsym $mod+shift+p exec --no-startup-id lxappearance
+
 # kill focused window
-bindsym Mod1+Shift+q kill
+bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym Mod1+d exec --no-startup-id dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id dmenu_run
 
 # change focus
-bindsym Mod1+$left focus left
-bindsym Mod1+$down focus down
-bindsym Mod1+$up focus up
-bindsym Mod1+$right focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Left focus left
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
 # move focused window
-bindsym Mod1+Shift+$left move left
-bindsym Mod1+Shift+$down move down
-bindsym Mod1+Shift+$up move up
-bindsym Mod1+Shift+$right move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod1+h split h
+bindsym $mod+h split h
 
 # split in vertical orientation
-bindsym Mod1+v split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym Mod1+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
-bindsym Mod1+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym Mod1+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym Mod1+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym Mod1+a focus parent
+bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym Mod1+d focus child
+#bindsym $mod+d focus child
 
 # move the currently focused window to the scratchpad
-bindsym Mod1+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod1+minus scratchpad show
+bindsym $mod+minus scratchpad show
 
 # switch to workspace
-bindsym mod1+1 workspace $WS1
-bindsym mod1+2 workspace $WS2
-bindsym mod1+3 workspace $WS3
-bindsym mod1+4 workspace $WS4
-bindsym Mod1+5 workspace $WS5
-bindsym Mod1+6 workspace $WS6
-bindsym Mod1+7 workspace $WS7
-bindsym Mod1+8 workspace 8
-bindsym Mod1+9 workspace 9
-bindsym Mod1+0 workspace 10
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym mod1+Shift+1 move container to workspace $WS1
-bindsym mod1+Shift+2 move container to workspace $WS2
-bindsym mod1+Shift+3 move container to workspace $WS3
-bindsym mod1+Shift+4 move container to workspace $WS4
-bindsym Mod1+Shift+5 move container to workspace $WS5
-bindsym Mod1+Shift+6 move container to workspace $WS6
-bindsym Mod1+Shift+7 move container to workspace $WS7
-bindsym Mod1+Shift+8 move container to workspace 8
-bindsym Mod1+Shift+9 move container to workspace 9
-bindsym Mod1+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $WS1
+bindsym $mod+Shift+2 move container to workspace $WS2
+bindsym $mod+Shift+3 move container to workspace $WS3
+bindsym $mod+Shift+4 move container to workspace $WS4
+bindsym $mod+Shift+5 move container to workspace $WS5
+bindsym $mod+Shift+6 move container to workspace $WS6
+bindsym $mod+Shift+7 move container to workspace $WS7
+bindsym $mod+Shift+8 move container to workspace $WS8
+bindsym $mod+Shift+9 move container to workspace $WS9
+bindsym $mod+Shift+0 move container to workspace 10
 
-set $WS1 1:   TERM
-set $WS2 2:   WEB 
-set $WS3 3:   DATA
-set $WS4 4:   WORK
-set $WS5 5:   GIMP
-set $WS6 6:   TEST
-set $WS7 7:   VBOX
+set $WS1 1: 
+set $WS2 2: 
+set $WS3 3: 
+set $WS4 4: 
+set $WS5 5: 
+set $WS6 6: 
+set $WS7 7:  
+set $WS8 8: 
+set $WS9 9: 
 
 # reload the configuration file
-bindsym Mod1+Shift+c reload
+bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod1+Shift+r restart
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -186,7 +182,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym Mod1+r mode "resize"
+bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -195,33 +191,51 @@ bindsym Mod1+r mode "resize"
 #} 
 bar {
 	position top
-    status_command /home/drakfire/.i3/conky-i3bar.sh
+	status_command /home/drakfire/.i3/conky-i3bar.sh
+	font pango:Profont 8
+colors {
+    background #333333
+    statusline #ffffff
+    separator #333333
 }
-
+}
 # *********
-# * Window Rules
-# *********
-for_window [class="Vlc"] floating enable
 for_window [class=Gucharmap] floating enable
 for_window [class=Galculator] floating enable
-for_window [class=Gimp] floating enable
+#for_window [class=Gimp] floating enable
 for_window [title="ranger-opened-by-app"] floating enable
 for_window [class="VirtualBox"] floating enable
 
-assign [class="Chromium"] $WS2
-assign [class="^URxvt$" title="^ranger$"] $WS1
+assign [class="chromium"] $WS2
+assign [class="^URxvt$" title="^ranger$"] $WS3
 assign [class="^URxvt$" ] $WS1
 assign [class="Geany"] $WS4
 assign [class="Pcmanfm"] $WS3
 assign [class="Galculator"] $WS3
-assign [class="Gimp"] $WS5
+#assign [class="Gimp"] $WS5
 assign [class="VirtualBox"] $WS7
+
+# border / titlebar
+new_window normal
+hide_edge_borders vertical
+bindsym Control+Shift+x [class="^.*"] border toggle
+for_window [class="^.*"] border pixel 1
+for_window [class="URxvt"] border pixel 1
+for_window [class="Lxappearance"] border normal
+for_window [class="mplayer"] border pixel 1
+for_window [class="mpv"] border pixel 0
+for_window [class="Pcmanfm"] border pixel 0
+for_window [class="Chromium"] border pixel 0
+for_window [class="Geary"] border pixel 0
+for_window [class="Feh"] border pixel 0
+
+
 #class                  border   backgr.  text
-client.focused          #d8d8d8 #d8d8d8 #d8d8d8
+client.focused          #d8d8d8 #d8d8d8 #111111
 client.focused_inactive #111111 #111111 #999999
 client.unfocused        #333333 #333333 #999999
 client.urgent           #a5a5a5 #a5a5a5 #333333
-client.background       #d8d8d8
+client.background       #333333
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
 # keysym-based config which used their favorite modifier (alt or windows)
